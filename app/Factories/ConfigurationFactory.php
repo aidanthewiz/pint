@@ -2,10 +2,10 @@
 
 namespace App\Factories;
 
-use App\Fixers\LaravelPhpdocAlignmentFixer;
 use App\Repositories\ConfigurationJsonRepository;
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
+use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 class ConfigurationFactory
 {
@@ -42,17 +42,14 @@ class ConfigurationFactory
      */
     public static function preset($rules)
     {
-        return (new Config())
+        return (new Config)
+            ->setParallelConfig(ParallelConfigFactory::detect())
             ->setFinder(self::finder())
             ->setIndent(resolve(ConfigurationJsonRepository::class)->indent())
             ->setLineEnding(resolve(ConfigurationJsonRepository::class)->lineEnding())
             ->setRules(array_merge($rules, resolve(ConfigurationJsonRepository::class)->rules()))
             ->setRiskyAllowed(true)
-            ->setUsingCache(true)
-            ->registerCustomFixers([
-                // Laravel...
-                new LaravelPhpdocAlignmentFixer(),
-            ]);
+            ->setUsingCache(true);
     }
 
     /**

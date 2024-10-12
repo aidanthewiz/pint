@@ -56,7 +56,7 @@ return ConfigurationFactory::preset([
     'elseif' => true,
     'encoding' => true,
     'full_opening_tag' => true,
-    'fully_qualified_strict_types' => true,
+    'fully_qualified_strict_types' => false,
     'function_declaration' => true,
     'general_phpdoc_tag_rename' => true,
     'heredoc_to_nowdoc' => true,
@@ -82,6 +82,10 @@ return ConfigurationFactory::preset([
     ],
     'native_function_casing' => true,
     'native_type_declaration_casing' => true,
+    'new_with_parentheses' => [
+        'named_class' => false,
+        'anonymous_class' => false,
+    ],
     'no_alias_functions' => true,
     'no_alias_language_construct_call' => true,
     'no_alternative_syntax' => true,
@@ -132,13 +136,18 @@ return ConfigurationFactory::preset([
     'normalize_index_brace' => true,
     'not_operator_with_successor_space' => true,
     'nullable_type_declaration' => true,
-    'nullable_type_declaration_for_default_null_value' => [
-        'use_nullable_type_declaration' => false,
-    ],
+    'nullable_type_declaration_for_default_null_value' => true,
     'object_operator_without_whitespace' => true,
     'ordered_imports' => ['sort_algorithm' => 'alpha', 'imports_order' => ['const', 'class', 'function']],
     'ordered_interfaces' => true,
     'ordered_traits' => true,
+    'php_unit_method_casing' => ['case' => 'snake_case'],
+    'phpdoc_align' => [
+        'align' => 'left',
+        'spacing' => [
+            'param' => 2,
+        ],
+    ],
     'phpdoc_indent' => true,
     'phpdoc_inline_tag_normalizer' => true,
     'phpdoc_no_access' => true,
@@ -183,6 +192,7 @@ return ConfigurationFactory::preset([
     'single_line_comment_style' => [
         'comment_types' => ['hash'],
     ],
+    'single_line_empty_body' => true,
     'single_quote' => true,
     'single_space_around_construct' => true,
     'space_after_semicolon' => true,
@@ -207,7 +217,4 @@ return ConfigurationFactory::preset([
         'identical' => false,
         'less_and_greater' => false,
     ],
-
-    // Laravel
-    'Laravel/laravel_phpdoc_alignment' => true,
 ]);

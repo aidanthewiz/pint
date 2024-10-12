@@ -1,5 +1,5 @@
 includes:
-  - ./vendor/nunomaduro/larastan/extension.neon
+  - ./vendor/larastan/larastan/extension.neon
 parameters:
   paths:
     - app
@@ -7,4 +7,3 @@ parameters:
     - config
     - resources
   level: 6
-  checkGenericClassInNonGenericObjectType: false

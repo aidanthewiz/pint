@@ -41,7 +41,7 @@ class ElaborateSummary
             0,
             0,
             $this->output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE,
-            $this->input->getOption('test'),
+            $this->input->getOption('test') || $this->input->getOption('bail'),
             $this->output->isDecorated()
         );
 
@@ -51,7 +51,7 @@ class ElaborateSummary
             $this->summaryOutput->handle($summary, $totalFiles);
         }
 
-        $failure = ($summary->isDryRun() && count($changes) > 0)
+        $failure = (($summary->isDryRun() || $this->input->getOption('repair')) && count($changes) > 0)
             || count($this->errors->getInvalidErrors()) > 0
             || count($this->errors->getExceptionErrors()) > 0
             || count($this->errors->getLintErrors()) > 0;
@@ -69,12 +69,12 @@ class ElaborateSummary
     protected function displayUsingFormatter($summary, $totalFiles)
     {
         $reporter = match ($format = $this->input->getOption('format')) {
-            'checkstyle' => new FixReport\CheckstyleReporter(),
-            'gitlab' => new FixReport\GitlabReporter(),
-            'json' => new FixReport\JsonReporter(),
-            'junit' => new FixReport\JunitReporter(),
-            'txt' => new FixReport\TextReporter(),
-            'xml' => new FixReport\XmlReporter(),
+            'checkstyle' => new FixReport\CheckstyleReporter,
+            'gitlab' => new FixReport\GitlabReporter,
+            'json' => new FixReport\JsonReporter,
+            'junit' => new FixReport\JunitReporter,
+            'txt' => new FixReport\TextReporter,
+            'xml' => new FixReport\XmlReporter,
             default => abort(1, sprintf('Format [%s] is not supported.', $format)),
         };
 

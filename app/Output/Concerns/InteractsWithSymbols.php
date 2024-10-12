@@ -6,8 +6,8 @@ use PhpCsFixer\Error\Error;
 use PhpCsFixer\FixerFileProcessedEvent;
 
 /**
- * @property \Symfony\Component\Console\Input\InputInterface  $input
- * @property \Symfony\Component\Console\Output\OutputInterface  $output
+ * @property \Symfony\Component\Console\Input\InputInterface $input
+ * @property \Symfony\Component\Console\Output\OutputInterface $output
  */
 trait InteractsWithSymbols
 {
@@ -39,7 +39,7 @@ trait InteractsWithSymbols
         $statusSymbol = $this->statuses[$status];
 
         if (! isset($statusSymbol['symbol'])) {
-            $statusSymbol = $this->input->getOption('test')
+            $statusSymbol = ($this->input->getOption('test') || $this->input->getOption('bail'))
                 ? $statusSymbol[0]
                 : $statusSymbol[1];
         }
